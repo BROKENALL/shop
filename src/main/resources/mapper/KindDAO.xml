@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.shop.DAO.KindDAO">
+    <resultMap id="KindMap" type="com.shop.model.Kind">
+        <id column="kind_id" property="kindId"/>
+        <result column="name" property="name"/>
+
+    </resultMap>
+
+
+    <select id="findAll" resultMap="KindMap">
+        select kind_id, `name`
+        from t_kind
+    </select>
+
+
+</mapper>

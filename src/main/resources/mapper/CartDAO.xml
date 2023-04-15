@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.shop.DAO.CartDAO">
+    <resultMap id="CartMap" type="com.shop.model.Cart">
+        <id column="id" property="id"/>
+        <result column="vip_id" property="vipId"/>
+        <result column="commodity_id" property="commodityId"/>
+        <result column="number" property="number"/>
+        <result column="photo" property="photo"/>
+        <result column="price" property="price"/>
+        <result column="commodity_name" property="commodityName"/>
+
+    </resultMap>
+    <insert id="add" parameterType="com.shop.model.Cart">
+        insert into t_cart (vip_id, commodity_id, commodity_name, price, photo, number)
+        values (#{cart.vipId}, #{cart.commodityId}, #{cart.commodityName}, #{cart.price}, #{cart.photo}, #{cart.number})
+    </insert>
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        delete
+        from t_cart
+        where id = #{id}
+    </delete>
+
+
+    <select id="findById" resultMap="CartMap" resultType="java.lang.Integer">
+        select id, vip_id, commodity_id, `number`, photo, price, commodity_name
+        from t_cart
+        where vip_id = #{id}
+    </select>
+
+    <update id="updateByNumber" parameterType="java.lang.Integer">
+        update t_cart
+        set number = #{number}
+        where id = #{id}
+    </update>
+
+
+</mapper>

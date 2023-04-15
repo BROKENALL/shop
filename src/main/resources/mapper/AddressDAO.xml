@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.shop.DAO.AddressDAO">
+
+    <select id="findAddressById" resultType="Address" parameterType="java.lang.Integer">
+        select `id`,
+               `vip_id`,
+               `name`,
+               `phone`,
+               `provice_name`,
+               `city_name`,
+               `area_name`,
+               `street_name`,
+               `is_default`
+        from t_address
+        where id = #{addressId}
+    </select>
+
+
+
+
+
+
+    <select id="findAllByVipId" resultType="Address" parameterType="java.lang.String">
+        select `id`,
+               `vip_id`,
+               `name`,
+               `phone`,
+               `provice_name`,
+               `city_name`,
+               `area_name`,
+               `street_name`,
+               `is_default`
+        from t_address
+        where vip_id = #{vipId}
+    </select>
+
+
+
+    <insert id="addAddress" parameterType="Address">
+        insert into t_address
+        (`vip_id`,
+         `name`,
+         `phone`,
+         `provice_name`,
+         `city_name`,
+         `area_name`,
+         `street_name`,
+         `is_default`)
+        values (#{address.vipId}, #{address.name}, #{address.phone}, #{address.proiceName}, #{address.cityName},
+                #{adress.areaName}, #{address.streetName}, #{address.isDefault})
+    </insert>
+
+
+</mapper>

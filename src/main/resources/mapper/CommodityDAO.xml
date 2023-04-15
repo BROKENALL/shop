@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.shop.DAO.CommodityDAO">
+    <cache type="org.mybatis.caches.caffeine.CaffeineCache"/>
+    <resultMap id="CommodityMap" type="com.shop.model.Commodity">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="kind" property="kind"/>
+        <result column="taste" property="taste"/>
+        <result column="price" property="price"/>
+        <result column="photo" property="photo"/>
+        <result column="number" property="number"/>
+        <result column="state" property="state"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="hot" property="hot"/>
+
+    </resultMap>
+    <resultMap id="CategoryMap" type="com.shop.model.Category">
+
+        <id column="id" property="id"/>
+
+    </resultMap>
+
+    <select id="findById" resultMap="CommodityMap" resultType="java.lang.Integer">
+        select id,
+               `name`,
+               kind,
+               taste,
+               price,
+               photo,
+               `number`,
+               `state`,
+               parent_id,
+               hot
+        from t_commodity
+        where id = #{id}
+    </select>
+
+
+
+    <select id="findAll" resultMap="CommodityMap">
+        select id,
+               `name`,
+               kind,
+               taste,
+               price,
+               photo,
+               `number`,
+               `state`,
+               parent_id,
+               hot
+        from t_commodity
+    </select>
+
+    <select id="findByParentId" resultMap="CommodityMap" parameterType="java.lang.Integer">
+        select id,
+               `name`,
+               kind,
+               taste,
+               price,
+               photo,
+               `number`,
+               `state`,
+               parent_id,
+               hot
+        from t_commodity
+        where parent_id = #{id}
+
+    </select>
+
+    <select id="findByName" resultMap="CommodityMap" parameterType="java.lang.String">
+        select id,
+               `name`,
+               kind,
+               taste,
+               price,
+               photo,
+               `number`,
+               `state`,
+               parent_id,
+               hot
+        from t_commodity
+        where `name` like "%" #{name} "%"
+    </select>
+
+
+    <select id="findByBean" resultMap="CommodityMap">
+
+        select id,`name`,kind,taste,price,photo,`number`,`state`,parent_id,hot from t_commodity
+        <where>
+            <if test="commodityBean.kind!=null">
+                and kind=#{commodityBean.kind}
+            </if>
+
+            <if test="commodityBean.category!=null and childrenId.size()>1">
+                and parent_id in
+                <foreach collection="childrenId" item="parentId" open="(" close=")" separator=",">
+                    #{parentId}
+                </foreach>
+
+            </if>
+            <if test="commodityBean.price1!=null">
+                and price between #{commodityBean.price1} AND #{commodityBean.price2}
+            </if>
+
+
+        </where>
+    </select>
+</mapper>

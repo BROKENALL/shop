@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<!-- 标准控制台输出 -->
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>%d{HH:mm:ss.SSS} %-5level %logger{80} - %msg%n</Pattern>
+		</encoder>
+	</appender>
+
+	<!-- 滚动文件输出。配置输出文件路径时，注意windows系统以类似"d:/"开始 -->
+	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>d:/logs/shop01/logFile.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<fileNamePattern>d:/logs/ssm1/logFile-%d{yyyy-MM-dd}.%i.zip</fileNamePattern>
+			<maxHistory>30</maxHistory>
+			<maxFileSize>5MB</maxFileSize>
+			<totalSizeCap>100MB</totalSizeCap>
+
+		</rollingPolicy>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>%d{HH:mm:ss.SSS} %-5level %logger{80} - %msg%n</Pattern>
+		</encoder>
+	</appender>
+
+	<!-- 开发模式，此处选择了控制台输出。对于生产模式，一般是将日志记录到文件 -->
+	<!--配置日志输出器，root根日志，全局日志，主日志-->
+	<root>
+		<!--输出等级-->
+		<level value="INFO" />
+		<appender-ref ref="STDOUT" />
+	</root>
+
+	<!--输出mybatis中的sql日志-->
+	<logger name="mybatis" additivity="false">
+		<level value="DEBUG" />
+		<appender-ref ref="STDOUT" />
+	</logger>
+
+</configuration>

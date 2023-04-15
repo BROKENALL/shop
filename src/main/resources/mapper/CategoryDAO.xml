@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.shop.DAO.CategoryDAO">
+
+    <cache type="org.mybatis.caches.caffeine.CaffeineCache"/>
+    <resultMap id="CategoryMap" type="com.shop.model.Category">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="icon" property="icon"/>
+        <result column="seq" property="seq"/>
+
+        <!--父类别-->
+        <association property="parent" column="parent_id" select="findById"/>
+
+        <collection property="children" column="id" select="findByParentId"/>
+
+
+        <collection property="commodities" column="id" select="com.shop.DAO.CommodityDAO.findByParentId"/>
+
+
+    </resultMap>
+
+
+    <select id="findRootCategory" resultMap="CategoryMap">
+        select id, `name`, icon, parent_id, seq
+        from t_category
+        where parent_id is null
+    </select>
+
+
+    <select id="findById" resultMap="CategoryMap" parameterType="java.lang.Integer">
+        select id, `name`, icon, parent_id, seq
+        from t_category
+        where id = #{id}
+    </select>
+
+
+    <select id="findByParentId" resultMap="CategoryMap" parameterType="java.lang.Integer">
+        select id, `name`, icon, parent_id, seq
+        from t_category
+        where parent_id = #{id}
+    </select>
+
+    <select id="findChildrenId" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+        select id
+        from t_category
+        where parent_id = #{id}
+    </select>
+
+
+</mapper>

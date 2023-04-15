@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.shop.DAO.OrderItemDAO">
+
+
+    <select id="findOrderItem" resultType="OrderItem" parameterType="java.lang.String">
+        select id, order_id, commodity_id, commodity_name, commodity_photo, price, `number`
+        from t_order_item
+        where order_id = #{order_code}
+    </select>
+
+    <insert id="addOrderItem" parameterType="com.shop.model.OrderItem">
+        insert into t_order_item (order_id, commodity_id, commodity_name, commodity_photo, price, `number`)
+        values (#{orderItem.orderId}, #{orderItem.commodityId}, #{orderItem.commodityName},
+                #{orderItem.commodityPhoto}, #{orderItem.price}, #{orderItem.number})
+    </insert>
+
+</mapper>
