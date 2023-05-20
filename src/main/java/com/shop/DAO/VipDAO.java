@@ -12,4 +12,10 @@ public interface VipDAO {
     Vip findVipById(String id);
 
     boolean addVip(@Param("id") String id,@Param("password") String password);
+
+    void updataPhoto(Vip vip);
+
+    void updataVip(Vip vip);
+
+    Integer findNum();
 }

@@ -1,56 +1,27 @@
 package com.shop.model;
 
+import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
+@Data
 public class Vip {
     private String id;
     private String name;
     private String password;
 
-    @DateTimeFormat
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthday;
 
     private String photo;
 
-    public LocalDate getBirthday() {
-        return birthday;
-    }
+    private String sex;
 
-    public void setBirthday(LocalDate birthday) {
-        this.birthday = birthday;
-    }
+    private String email;
 
-    public String getPhoto() {
-        return photo;
-    }
+    private String phone;
 
-    public void setPhoto(String photo) {
-        this.photo = photo;
-    }
+    private String nickName;
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }

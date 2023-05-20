@@ -11,18 +11,14 @@
                `vip_id`,
                `name`,
                `phone`,
-               `provice_name`,
+               `province_name`,
                `city_name`,
                `area_name`,
                `street_name`,
                `is_default`
         from t_address
-        where id = #{addressId}
+        where id = #{id}
     </select>
-
-
-
-
 
 
     <select id="findAllByVipId" resultType="Address" parameterType="java.lang.String">
@@ -30,7 +26,7 @@
                `vip_id`,
                `name`,
                `phone`,
-               `provice_name`,
+               `province_name`,
                `city_name`,
                `area_name`,
                `street_name`,
@@ -40,20 +36,44 @@
     </select>
 
 
-
     <insert id="addAddress" parameterType="Address">
         insert into t_address
         (`vip_id`,
          `name`,
          `phone`,
-         `provice_name`,
+         `province_name`,
          `city_name`,
          `area_name`,
          `street_name`,
          `is_default`)
-        values (#{address.vipId}, #{address.name}, #{address.phone}, #{address.proiceName}, #{address.cityName},
-                #{adress.areaName}, #{address.streetName}, #{address.isDefault})
+        values (#{vipId}, #{name}, #{phone}, #{provinceName}, #{cityName},
+                #{areaName}, #{streetName}, #{isDefault})
     </insert>
+
+    <update id="updataIsDefaultAddress" parameterType="Integer">
+        update t_address
+        set is_default = 1
+        where id = #{id}
+    </update>
+
+    <update id="updataAll" parameterType="Integer">
+        update t_address
+        set is_default = 0
+        where id != #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="Integer">
+        delete
+        from t_address
+        where id = #{id}
+    </delete>
+
+    <select id="minId" resultType="Integer">
+        select MIN(id)
+        from t_address
+    </select>
+
+
 
 
 </mapper>

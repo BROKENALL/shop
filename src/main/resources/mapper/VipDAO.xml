@@ -6,15 +6,14 @@
 <mapper namespace="com.shop.DAO.VipDAO">
 
 
-
     <select id="findAll" resultType="com.shop.model.Vip">
-        select id, `name`, `password`
+        select *
         from t_vip
     </select>
 
 
     <select id="findVipById" parameterType="java.lang.String" resultType="com.shop.model.Vip">
-        select id, `name`, `password`
+        select *
         from t_vip
         where id = #{id}
     </select>
@@ -23,6 +22,28 @@
         insert into t_vip(`id`, `password`)
         values (#{id}, #{password});
     </insert>
+
+    <update id="updataPhoto" parameterType="Vip">
+        UPDATE t_vip
+        set photo = #{photo}
+        WHERE id = #{id}
+    </update>
+
+    <update id="updataVip" parameterType="Vip">
+        UPDATE t_vip
+        set name     = #{name},
+            birthday = #{birthday},
+            sex      = #{sex},
+            email    = #{email},
+            phone    = #{phone},
+            nick_name=#{nickName}
+        WHERE id = #{id}
+    </update>
+
+    <select id="findNum" resultType="Integer">
+        select count(*)
+        from t_vip
+    </select>
 
 
 </mapper>

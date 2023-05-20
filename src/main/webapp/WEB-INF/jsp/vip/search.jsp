@@ -28,7 +28,7 @@
     </script>
 
     <script type="text/javascript" src="basic/js/jquery-1.7.min.js"></script>
-    <script type="text/javascript" src="lib/layer/layer.js"></script>
+    <script type="text/javascript" src="lib/layui/layui.js"></script>
     <script type="text/javascript" src="js/script.js"></script>
     <script type="text/javascript" src="js/search.js"></script>
 
@@ -52,7 +52,7 @@
             <div class="menu-hd"><a href="index" target="_top" class="h">商城首页</a></div>
         </div>
         <div class="topMessage my-shangcheng">
-            <div class="menu-hd MyShangcheng"><a href="frame" target="_top"><i class="am-icon-user am-icon-fw"></i>个人中心</a>
+            <div class="menu-hd MyShangcheng"><a href="frame/index" target="_top"><i class="am-icon-user am-icon-fw"></i>个人中心</a>
             </div>
         </div>
         <div class="topMessage mini-cart">

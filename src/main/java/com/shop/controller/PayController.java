@@ -1,5 +1,6 @@
 package com.shop.controller;
 
+import com.shop.config.ShopEnum;
 import com.shop.model.Address;
 import com.shop.model.Order;
 import com.shop.model.OrderItem;
@@ -39,14 +40,14 @@ public class PayController {
     }
 
     @GetMapping("")
-    public String pay(Map<String, Object> map, String orderId, HttpSession session) {
+    public String pay(Map<String, Object> map, Integer orderId, HttpSession session) {
         if (orderId == null) {
             return "redirect:index";
         } else {
-           String vipId =  (String) session.getAttribute("vipId");
+            String vipId = (String) session.getAttribute("vipId");
             Order order = payService.findById(orderId);
             List<Address> address = addressService.findAllByVipId(vipId);
-            map.put("address",address);
+            map.put("address", address);
             map.put("order", order);
             return "vip/pay";
         }
@@ -60,12 +61,30 @@ public class PayController {
         Map<String, Object> result = new HashMap<>();
         Order order = new Order();
         order.setOrderItemList(items);
-        order.setVipId((String) session.getAttribute("vipId"));
+        order.setVipId((String) session.getAttribute(ShopEnum.VIP_ID));
         String orderId = payService.addOrder(order);
         result.put("orderId", orderId);
         result.put("success", "成功！！");
         return ResponseEntity.ok(result);
+    }
+
+    @PostMapping(value = "/success")
+    public String success(Map<String, Object> map, Order order) {
+        map.put("order", payService.success(order));
+        return "vip/success";
+    }
+
+    @PostMapping(value = "/updataIsDefaultAddress")
+    @ResponseBody
+    public void updataIsDefaultAddress(Integer id) {
+        payService.updataIsDefaultAddress(id);
+    }
 
 
+    @PostMapping(value = "saveAddress")
+    public String saveAddress(Map<String, Object> map, Integer orderId, HttpSession session, Address address) {
+        address.setVipId((String) session.getAttribute(ShopEnum.VIP_ID));
+        addressService.saveAddress(address);
+        return pay(map, orderId, session);
     }
 }

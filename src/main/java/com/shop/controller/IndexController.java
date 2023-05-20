@@ -44,13 +44,7 @@ public class IndexController {
 
     //首页
     @GetMapping("index")
-    public String index(Map<String, Object> map, HttpSession session) throws Exception{
-        try {
-            System.out.println("aaa");
-        }catch (Exception a) {System.out.println("nnn");}finally {
-            
-        }
-
+    public String index(Map<String, Object> map, HttpSession session){
         String vipName = (String) session.getAttribute("vipName");
         map.put("vipName", vipName);
 

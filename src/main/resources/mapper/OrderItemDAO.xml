@@ -7,10 +7,10 @@
 <mapper namespace="com.shop.DAO.OrderItemDAO">
 
 
-    <select id="findOrderItem" resultType="OrderItem" parameterType="java.lang.String">
+    <select id="findOrderItem" resultType="OrderItem" parameterType="Integer">
         select id, order_id, commodity_id, commodity_name, commodity_photo, price, `number`
         from t_order_item
-        where order_id = #{order_code}
+        where order_id = #{order_id}
     </select>
 
     <insert id="addOrderItem" parameterType="com.shop.model.OrderItem">

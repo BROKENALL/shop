@@ -20,18 +20,16 @@
     <script type="text/javascript" src="basic/js/jquery-1.7.min.js"></script>
     <script type="text/javascript" src="basic/js/quick_links.js"></script>
     <script type="text/javascript">
-        console.log(ctx);
         let commodityId = parseInt("${cd.id}");
-        let success = "${success}";
-        let error="${error}";
+        let temp = "${temp}";
     </script>
     <script type="text/javascript" src="AmazeUI-2.4.2/assets/js/amazeui.js"></script>
     <script type="text/javascript" src="js/jquery.imagezoom.min.js"></script>
     <script type="text/javascript" src="js/jquery.flexslider.js"></script>
-    <script type="text/javascript" src="lib/jquery/jquery-3.6.0.min.js"></script>
-    <script type="text/javascript" src="lib/layer/layer.js"></script>
-    <script type="text/javascript" src="js/list.js"></script>
+    <script type="text/javascript" src="lib/layui/layui.js"></script>
     <script type="text/javascript" src="js/introduction.js"></script>
+    <script type="text/javascript" src="js/list.js"></script>
+
 
 
 </head>
@@ -54,7 +52,7 @@
             <div class="menu-hd"><a href="index" target="_top" class="h">商城首页</a></div>
         </div>
         <div class="topMessage my-shangcheng">
-            <div class="menu-hd MyShangcheng"><a href="javascript:void(0)" target="_top"><i
+            <div class="menu-hd MyShangcheng"><a href="frame/index" target="_top"><i
                     class="am-icon-user am-icon-fw"></i>个人中心</a></div>
         </div>
         <div class="topMessage mini-cart">
@@ -149,9 +147,9 @@
 
             <div class="box">
                 <script type="text/javascript">
-                    $(document).ready(function () {
+                    $(document).ready(function() {
                         $(".jqzoom").imagezoom();
-                        $("#thumblist li a").click(function () {
+                        $("#thumblist li a").click(function() {
                             $(this).parents("li").addClass("tb-selected").siblings().removeClass("tb-selected");
                             $(".jqzoom").attr('src', $(this).find("img").attr("mid"));
                             $(".jqzoom").attr('rel', $(this).find("img").attr("big"));
@@ -160,8 +158,7 @@
                 </script>
 
                 <div class="tb-booth tb-pic tb-s310">
-                    <a href="${cd.photo}"><img src="${cd.photo}" alt="细节展示放大镜特效" rel="${cd.photo}"
-                                               class="jqzoom"/></a>
+                    <a href="${cd.photo}"><img src="${cd.photo}" alt="细节展示放大镜特效" rel="${cd.photo}"  class="jqzoom"/></a>
                 </div>
                 <ul class="tb-thumb" id="thumblist">
                     <li class="tb-selected">
@@ -255,7 +252,7 @@
                     <div class="theme-popover">
                         <div class="theme-span"></div>
                         <div class="theme-poptit">
-                            <a href="javascript:;" title="关闭" class="close">×</a>
+                            <a href="javascript:void(0);" title="关闭" class="close">×</a>
                         </div>
                         <div class="theme-popbod dform">
                             <form class="theme-signin" name="loginform" action="" method="post">
@@ -316,8 +313,7 @@
                     </li>
                     <li>
                         <div class="clearfix tb-btn tb-btn-basket theme-login">
-                            <a id="LikBasket" title="加入购物车" href="javascript:void(0)"><i></i>加入购物车</a>
-
+                            <a id="LikBasket" title="加入购物车"><i></i>加入购物车</a>
                         </div>
                     </li>
                 </div>

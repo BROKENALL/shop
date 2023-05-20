@@ -8,9 +8,19 @@ import java.util.List;
 
 @Mapper
 public interface PayDAO{
-    Boolean addOrder(@Param("order") Order order);
+    void addOrder(@Param("order") Order order);
 
-    Order findById(String orderId);
+    Order findById(Integer orderId);
 
     List<Order> findAllByVipId(String vipId);
+
+    void updataById(Order order);
+
+    Integer findId();
+
+    Double findTotal();
+
+    Integer findNum();
+
+
 }

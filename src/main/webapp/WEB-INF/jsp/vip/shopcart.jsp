@@ -17,7 +17,7 @@
     <script type="text/javascript">
         let ctx = "${ctx}";
     </script>
-    <script type="text/javascript" src="lib/layer/layui.js"></script>
+    <script type="text/javascript" src="lib/layui/layui.js"></script>
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/shopcart.js"></script>
 
@@ -41,7 +41,7 @@
             <div class="menu-hd"><a href="index" target="_top" class="h">商城首页</a></div>
         </div>
         <div class="topMessage my-shangcheng">
-            <div class="menu-hd MyShangcheng"><a href="#" target="_top"><i class="am-icon-user am-icon-fw"></i>个人中心</a>
+            <div class="menu-hd MyShangcheng"><a href="frame/index" target="_top"><i class="am-icon-user am-icon-fw"></i>个人中心</a>
             </div>
         </div>
         <div class="topMessage mini-cart">

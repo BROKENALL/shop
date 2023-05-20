@@ -22,6 +22,7 @@ public class VipLoginConfig implements WebMvcConfigurer {
         patterns.add("/vip/shopcart");
         patterns.add("controller/vip/setting");
         patterns.add("/vip/frame/*");
+        patterns.add("/vip/pay/*");
         registry.addInterceptor(interceptor).addPathPatterns(patterns);
     }
 }

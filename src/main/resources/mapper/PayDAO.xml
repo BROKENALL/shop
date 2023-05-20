@@ -15,12 +15,18 @@
         <result column="order_state" property="orderState"/>
         <result column="expressage" property="expressage"/>
         <association property="address" column="address_id" select="com.shop.DAO.AddressDAO.findAddressById"/>
-        <collection property="orderItemList" column="order_code" select="findOrderItem"/>
+        <collection property="orderItemList" column="id" select="findOrderItemById"/>
     </resultMap>
     <insert id="addOrder" parameterType="com.shop.model.Order">
         insert into t_order (order_code, vip_id, order_time, total, order_state)
         values (#{order.orderCode}, #{order.vipId}, #{order.orderTime}, #{order.total}, #{order.orderState})
     </insert>
+
+    <select id="findOrderItemById" resultType="OrderItem" parameterType="Integer">
+        select id, order_id, commodity_id, commodity_name, commodity_photo, price, `number`
+        from t_order_item
+        where order_id = #{id}
+    </select>
 
     <select id="findAllByVipId" resultMap="orderMap" parameterType="java.lang.String">
         select id,
@@ -36,14 +42,8 @@
         where vip_id = #{vipId}
     </select>
 
-    <select id="findOrderItem" resultType="OrderItem" parameterType="java.lang.String">
-        select id, order_id, commodity_id, commodity_name, commodity_photo, price, `number`
-        from t_order_item
-        where order_id = #{orderCode}
-    </select>
 
-
-    <select id="findById" resultMap="orderMap" parameterType="java.lang.String">
+    <select id="findById" resultMap="orderMap" parameterType="java.lang.Integer">
         select id,
                order_code,
                vip_id,
@@ -54,7 +54,33 @@
                order_state,
                expressage
         from t_order
-        where order_code = #{orderId}
+        where id = #{orderId}
+    </select>
+
+    <update id="updataById" parameterType="Order">
+        update t_order
+        set order_state   = '待发货',
+            address_id    = #{addressId},
+            pay_type      = #{payType},
+            expressage    = #{expressage},
+            leave_message = #{leaveMessage}
+        where id = #{id}
+    </update>
+
+    <select id="findId" resultType="java.lang.Integer" parameterType="java.lang.String">
+        select MAX(id)
+        from t_order
+    </select>
+
+
+    <select id="findTotal" resultType="Double">
+        select SUM(total)
+        from t_order
+    </select>
+
+    <select id="findNum" resultType="Integer">
+        select count(*)
+        from t_order
     </select>
 
 </mapper>

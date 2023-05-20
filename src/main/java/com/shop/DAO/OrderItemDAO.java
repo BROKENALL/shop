@@ -12,6 +12,8 @@ import java.util.List;
 public interface OrderItemDAO {
 
     boolean addOrderItem(@Param("orderItem") OrderItem orderItemList);
-    List<OrderItem> findOrderItem(String orderId);
+    List<OrderItem> findOrderItem(Integer orderId);
+
+
 }
 

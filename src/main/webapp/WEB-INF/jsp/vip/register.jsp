@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="vip/AmazeUI-2.4.2/assets/css/amazeui.min.css" />
     <link href="vip/css/dlstyle.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="vip/lib/jquery/jquery-3.6.0.min.js"></script>
-    <script type="text/javascript" src="vip/lib/layer/layer.js"></script>
+    <script type="text/javascript" src="vip/lib/layui/layui.js"></script>
     <script type="text/javascript">
         let error = "${error}";
         let success="${success}";
@@ -24,7 +24,7 @@
 <body>
 
 <div class="login-boxtitle">
-    <a href="home/demo.html"><img alt="" src="vip/mages/logobig.png" /></a>
+    <a href="javascript:void(0)"><img alt="logo" src="vip/images/logobig.png" /></a>
 </div>
 
 <div class="res-banner">

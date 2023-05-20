@@ -2,6 +2,7 @@ package com.shop.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.shop.config.ShopEnum;
 import com.shop.model.Category;
 import com.shop.model.Commodity;
 import com.shop.model.CommodityBean;
@@ -44,16 +45,16 @@ public class SearchController{
                          String name,
                          CommodityBean commodityBean,
                          @RequestParam(defaultValue = "1", required = false) Integer pageNo) {
+        PageHelper.startPage(pageNo, 12);
         String vipName = (String) session.getAttribute("vipName");
         map.put("vipName", vipName);
         List<Commodity> cm;
         List<Integer> childrenId = new ArrayList<>();
+
         if (commodityBean.getCategory() != null && !commodityBean.getCategory().equals("")) {
             childrenId = categoryService.findChildrenId(Integer.valueOf(commodityBean.getCategory()));
         }
 
-
-        PageHelper.startPage(pageNo, 12);
         if (commodityBean.getClear() != null && !commodityBean.getClear().equals("")) {
             if (commodityBean.getClear().equals("1")) {
                 commodityBean.setKind(null);
@@ -65,7 +66,6 @@ public class SearchController{
         }
         if ((commodityBean.newGetKind() != null && !commodityBean.newGetKind().equals("")) || (commodityBean.getCategory() != null && !commodityBean.getCategory().equals("")) || (commodityBean.getPrice() != null && !commodityBean.getPrice().equals(""))) {
             Map<String, Object> bean = new HashMap<>();
-
             if (commodityBean.newGetKind() != null && !commodityBean.newGetKind().equals("")) {
                 bean.put("kind", commodityBean.newGetKind());
                 map.put("kind", commodityBean.newGetKind());
@@ -79,7 +79,6 @@ public class SearchController{
                 bean.put("category", null);
             }
             if (commodityBean.getPrice() != null && !commodityBean.getPrice().equals("")) {
-
                 if (commodityBean.getPrice().equals("1")) {
                     bean.put("price1", 0);
                     bean.put("price2", 50);
@@ -98,22 +97,18 @@ public class SearchController{
                 bean.put("price2", null);
             }
             cm = commodityService.findByBean(childrenId, bean);
-
-
         } else if (commodityBean.getParentId() != null) {
             cm = commodityService.findByParentId(commodityBean.getParentId());
-        } else if (name != null) {
+        } else if (name != null && name.equals("")) {
             cm = commodityService.findByName(name);
         } else {
+
             cm = commodityService.findAll();
         }
 
-
         PageInfo<Commodity> pi = new PageInfo<>(cm);
-
-
+        System.out.println(pi);
         pi.calcByNavigatePages(5);
-
         List<Kind> kd = kindService.findAll();
         List<Category> cg = categoryService.findLevel1Categories();
         if (cm.size() == 0) {

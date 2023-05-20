@@ -1,8 +1,11 @@
 package com.shop.service.serviceImpl;
 
 import com.shop.DAO.CommodityDAO;
+import com.shop.config.ShopEnum;
 import com.shop.model.Commodity;
 import com.shop.service.CommodityService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,9 +13,13 @@ import java.util.Map;
 
 @Service
 public class CommodityImpl implements CommodityService {
+
+    @Autowired
+    private RedisTemplate<Object, Object> redisTemplate;
     CommodityDAO dao;
+
     public CommodityImpl(CommodityDAO dao) {
-        this.dao=dao;
+        this.dao = dao;
     }
 
     @Override
@@ -35,11 +42,9 @@ public class CommodityImpl implements CommodityService {
         return dao.findByName(name);
     }
 
-    public List<Commodity> findByBean(List<Integer> childrenId,Map<String, Object> commodityBean) {
-        return dao.findByBean(childrenId,commodityBean);
+    public List<Commodity> findByBean(List<Integer> childrenId, Map<String, Object> commodityBean) {
+        return dao.findByBean(childrenId, commodityBean);
     }
-
-
 
 
 }

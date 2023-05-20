@@ -32,12 +32,12 @@ public class VipLoginController {
     public String loginPost(Vip vip, Map<String, Object> map,
                         HttpServletRequest req,
                         HttpServletResponse resp) {
-        System.out.println("eqweqw");
         Vip dbvip = sev.findVipById(vip.getId());
         if (dbvip == null) {
             map.put("error", "账户不存在");
             return "vip/login";
         } else {
+            req.getSession().setAttribute("vip",dbvip);
             req.getSession().setAttribute("vipName", dbvip.getName());
             loginPass(vip.getId(), vip.getPassword());
             map.put("vipId", vip.getId());

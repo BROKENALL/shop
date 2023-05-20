@@ -2,6 +2,7 @@ package com.shop.DAO;
 
 import com.shop.model.Address;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
@@ -12,6 +13,16 @@ public interface AddressDAO {
 
     public List<Address> findAllByVipId(String vipId);
 
-    public Boolean addAddress(Address address);
+    public void addAddress(Address address);
+
+    void updataIsDefaultAddress(Integer id);
+
+    void updataAll(Integer id);
+
+    void deleteById(Integer id);
+
+    Integer minId();
+
+
 
 }

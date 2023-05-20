@@ -11,21 +11,23 @@
 
     <title>结算页面</title>
 
-    <link href="AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css"/>
+    <link href="http://localhost:8080/vip/AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css"/>
 
-    <link href="basic/css/demo.css" rel="stylesheet" type="text/css"/>
-    <link href="css/cartstyle.css" rel="stylesheet" type="text/css"/>
+    <link href="http://localhost:8080/vip/basic/css/demo.css" rel="stylesheet" type="text/css"/>
+    <link href="http://localhost:8080/vip/css/cartstyle.css" rel="stylesheet" type="text/css"/>
 
-    <link href="css/jsstyle.css" rel="stylesheet" type="text/css"/>
+    <link href="http://localhost:8080/vip/css/jsstyle.css" rel="stylesheet" type="text/css"/>
 
 
     <script type="text/javascript">
+        var orderId = "${order.id}";
         let payType = "${order.payType}";
         let expressage = "${order.expressage}";
-        let address = "${order.address}";
+        var addressId = "${order.address}";
     </script>
-    <script type="text/javascript" src="js/address.js"></script>
-
+    <script type="text/javascript" src="http://localhost:8080/vip/js/address.js"></script>
+    <script type="text/javascript" src="http://localhost:8080/vip/js/pay.js"></script>
+    <script type="text/javascript" src="http://localhost:8080/vip/lib/layui/layui.js"></script>
 </head>
 
 <body>
@@ -34,14 +36,15 @@
 <div class="am-container header" id="headfirst">
     <ul class="message-r">
         <div class="topMessage home">
-            <div class="menu-hd"><a href="index" target="_top" class="h">商城首页</a></div>
+            <div class="menu-hd"><a href="http://localhost:8080/vip/index" target="_top" class="h">商城首页</a></div>
         </div>
         <div class="topMessage my-shangcheng">
-            <div class="menu-hd MyShangcheng"><a href="frame" target="_top"><i class="am-icon-user am-icon-fw"></i>个人中心</a>
+            <div class="menu-hd MyShangcheng"><a href="http://localhost:8080/vip/frame/index" target="_top"><i
+                    class="am-icon-user am-icon-fw"></i>个人中心</a>
             </div>
         </div>
         <div class="topMessage mini-cart">
-            <div class="menu-hd"><a id="mc-menu-hd" href="shopcart" target="_top"><i
+            <div class="menu-hd"><a id="mc-menu-hd" href="http://localhost:8080/vip/shopcart" target="_top"><i
                     class="am-icon-shopping-cart  am-icon-fw"></i><span>购物车</span><strong id="J_MiniCartNum"
                                                                                              class="h">0</strong></a>
             </div>
@@ -104,11 +107,14 @@
                                 <div class="clear"></div>
 
                                 <div class="new-addr-btn">
-                                    <a href="#" class="hidden">设为默认</a>
+                                    <a href="javascript:void(0);" class="hidden">设为默认</a>
                                     <span class="new-addr-bar hidden">|</span>
                                     <a href="#">编辑</a>
                                     <span class="new-addr-bar">|</span>
                                     <a href="javascript:void(0);" onclick="delClick(this);">删除</a>
+                                    <script type="text/javascript">
+                                        addressId =${address.id};
+                                    </script>
                                 </div>
                             </li>
                         </c:if>
@@ -140,13 +146,9 @@
                                     <span class="am-icon-angle-right am-icon-lg"></span>
                                 </div>
                                 <div class="clear"></div>
-
                                 <div class="new-addr-btn">
-                                    <a href="#">设为默认</a>
-                                    <span class="new-addr-bar">|</span>
-                                    <a href="#">编辑</a>
-                                    <span class="new-addr-bar">|</span>
-                                    <a href="javascript:void(0);"  onclick="delClick(this);">删除</a>
+                                    <input type="hidden" id="updataIsDefaultAddressId" value=${address.id}>
+                                    <a href="javascript:void(0);" id="updataIsDefaultAddress">设为默认</a>
                                 </div>
 
                             </li>
@@ -288,9 +290,16 @@
                     <div class="order-user-info">
                         <div id="holyshit257" class="memo">
                             <label>买家留言：</label>
-                            <input type="text" title="选填,对本次交易的说明（建议填写已经和卖家达成一致的说明）"
-                                   placeholder="选填,建议填写和卖家达成一致的说明"
-                                   class="memo-input J_MakePoint c2c-text-default memo-close">
+                            <form action="pay/success" id="successSubmit" method="post">
+                                <input id="id" value=${order.id} name="id" type="hidden">
+                                <input id="addressId" value="" name="addressId" type="hidden">
+                                <input id="payType" value="" name="payType" type="hidden">
+                                <input id="expressage" value="" name="expressage" type="hidden">
+                                <input type="text" title="选填,对本次交易的说明（建议填写已经和卖家达成一致的说明）"
+                                       placeholder="选填,建议填写和卖家达成一致的说明"
+                                       name="leaveMessage"
+                                       class="memo-input J_MakePoint c2c-text-default memo-close">
+                            </form>
                             <div class="msg hidden J-msg">
                                 <p class="error">最多输入500个字符</p>
                             </div>
@@ -315,35 +324,21 @@
                 <div class="box">
                     <div tabindex="0" id="holyshit267" class="realPay"><em class="t">实付款：</em>
                         <span class="price g_price ">
-                                    <span>¥</span> <em class="style-large-bold-red " id="J_ActualFee">244.00</em>
+                                    <span>¥</span> <em class="style-large-bold-red "
+                                                       id="J_ActualFee">${order.total}</em>
 											</span>
                     </div>
 
                     <div id="holyshit268" class="pay-address">
 
-                        <p class="buy-footer-address">
-                            <span class="buy-line-title buy-line-title-type">寄送至：</span>
-                            <span class="buy--address-detail">
-								   <span class="province">湖北</span>省
-												<span class="city">武汉</span>市
-												<span class="dist">洪山</span>区
-												<span class="street">雄楚大道666号(中南财经政法大学)</span>
-												</span>
-                            </span>
-                        </p>
-                        <p class="buy-footer-address">
-                            <span class="buy-line-title">收货人：</span>
-                            <span class="buy-address-detail">
-                                         <span class="buy-user">艾迪 </span>
-												<span class="buy-phone">15871145629</span>
-												</span>
-                        </p>
+
                     </div>
                 </div>
 
                 <div id="holyshit269" class="submitOrder">
+
                     <div class="go-btn-wrap">
-                        <a id="J_Go" href="success.html" class="btn-go" tabindex="0"
+                        <a id="J_Go" class="btn-go" tabindex="0"
                            title="点击此按钮，提交订单">提交订单</a>
                     </div>
                 </div>
@@ -388,36 +383,36 @@
     <hr/>
 
     <div class="am-u-md-12">
-        <form class="am-form am-form-horizontal">
-
+        <form class="am-form am-form-horizontal" id="post-address" action="http://localhost:8080/vip/pay/saveAddress" method="post">
+            <input name="orderId" value="${order.id}" type="hidden">
             <div class="am-form-group">
                 <label for="user-name" class="am-form-label">收货人</label>
                 <div class="am-form-content">
-                    <input type="text" id="user-name" placeholder="收货人">
+                    <input type="text" name="name" id="user-name" placeholder="收货人">
                 </div>
             </div>
 
             <div class="am-form-group">
                 <label for="user-phone" class="am-form-label">手机号码</label>
                 <div class="am-form-content">
-                    <input id="user-phone" placeholder="手机号必填" type="email">
+                    <input id="user-phone" name="phone" placeholder="手机号必填" type="email">
                 </div>
             </div>
 
             <div class="am-form-group">
                 <label for="user-phone" class="am-form-label">所在地</label>
                 <div class="am-form-content address">
-                    <select data-am-selected>
-                        <option value="a">浙江省</option>
-                        <option value="b">湖北省</option>
+                    <select data-am-selected name="provinceName">
+                        <option value="浙江省">浙江省</option>
+                        <option value="湖北省">湖北省</option>
                     </select>
-                    <select data-am-selected>
-                        <option value="a">温州市</option>
-                        <option value="b">武汉市</option>
+                    <select data-am-selected name="cityName">
+                        <option value="温州市">温州市</option>
+                        <option value="武汉市">武汉市</option>
                     </select>
-                    <select data-am-selected>
-                        <option value="a">瑞安区</option>
-                        <option value="b">洪山区</option>
+                    <select data-am-selected name="areaName">
+                        <option value="瑞安区">瑞安区</option>
+                        <option value="洪山区">洪山区</option>
                     </select>
                 </div>
             </div>
@@ -425,14 +420,14 @@
             <div class="am-form-group">
                 <label for="user-intro" class="am-form-label">详细地址</label>
                 <div class="am-form-content">
-                    <textarea class="" rows="3" id="user-intro" placeholder="输入详细地址"></textarea>
+                    <textarea class="" rows="3" id="user-intro" placeholder="输入详细地址" name="streetName"></textarea>
                     <small>100字以内写出你的详细地址...</small>
                 </div>
             </div>
 
             <div class="am-form-group theme-poptit">
                 <div class="am-u-sm-9 am-u-sm-push-3">
-                    <div class="am-btn am-btn-danger">保存</div>
+                    <div class="am-btn am-btn-danger" id="saveAddress">保存</div>
                     <div class="am-btn am-btn-danger close">取消</div>
                 </div>
             </div>

@@ -317,10 +317,10 @@
                     <c:if test="${cd1.state!=null}">
                         <div class="am-u-sm-3 sale-item">
                             <div class="s-img">
-                                <a href="introduction?id=${cd1.id}"><img src="${cd1.photo}"/></a>
+                                <a href="introduction?commodityId=${cd1.id}"><img src="${cd1.photo}"/></a>
                             </div>
                             <div class="s-info">
-                                <a href="introduction?id=${cd1.id}"><p class="s-title">${cd1.name}</p></a>
+                                <a href="introduction?commodityId=${cd1.id}"><p class="s-title">${cd1.name}</p></a>
                                 <div class="s-price">￥<b>${cd1.price}</b>
                                     <a class="s-buy" href="introduction?id=${cd1.id}">${cd1.state}</a>
                                 </div>
@@ -365,7 +365,7 @@
                     <c:forEach items="${c21.children}" var="c31">
                     <c:forEach items="${c31.commodities}" var="cc" varStatus="status">
                     <c:if test="${status.count==1}">
-                        <a href="javascript:void(0) ">
+                        <a href="introduction?commodityId=${cc.id} ">
                             <img src="${cc.photo}"/>
                             <div class="outer-con ">
                                 <div class="title ">
@@ -410,7 +410,7 @@
                                 </div>
 
                             </div>
-                            <a href="javascript:void(0) "><img src="${cc.photo}"/></a>
+                            <a href="introduction?commodityId=${cc.id}"><img src="${cc.photo}"/></a>
                         </div>
                     </li>
                 </c:if>
@@ -428,7 +428,7 @@
                                 </div>
 
                             </div>
-                            <a href="javascript:void(0) "><img src="${cc.photo}"/></a>
+                            <a href="introduction?commodityId=${cc.id}"><img src="${cc.photo}"/></a>
                         </div>
                     </li>
                 </c:if>
@@ -446,7 +446,7 @@
                                 </div>
 
                             </div>
-                            <a href="javascript:void(0) "><img src="${cc.photo}"/></a>
+                            <a href="introduction?commodityId=${cc.id}"><img src="${cc.photo}"/></a>
                         </div>
                     </li>
                 </c:if>
@@ -465,7 +465,7 @@
                                 </div>
 
                             </div>
-                            <a href="javascript:void(0) "><img src="${cc.photo}"/></a>
+                            <a href="introduction?commodityId=${cc.id}"><img src="${cc.photo}"/></a>
                         </div>
                     </li>
                 </c:if>
@@ -483,7 +483,7 @@
                                 </div>
 
                             </div>
-                            <a href="javascript:void(0) "><img src="${cc.photo}"/></a>
+                            <a href="introduction?commodityId=${cc.id}"><img src="${cc.photo}"/></a>
                         </div>
                     </li>
                 </c:if>
